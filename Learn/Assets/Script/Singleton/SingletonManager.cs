@@ -30,5 +30,6 @@ public static class SingletonManager
         }
         
         throw new InvalidOperationException($"Class {type.Name} does not have SingletonAttribute.");
+        
     }
 }

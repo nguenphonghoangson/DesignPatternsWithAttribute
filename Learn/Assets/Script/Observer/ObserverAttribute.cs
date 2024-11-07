@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class Observer : MonoBehaviour
+[AttributeUsage(AttributeTargets.Method)]
+public class ObserverAttribute : Attribute
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string PropertyName { get; }
 
-    // Update is called once per frame
-    void Update()
+    public ObserverAttribute(string propertyName)
     {
-        
+        PropertyName = propertyName;
     }
 }
