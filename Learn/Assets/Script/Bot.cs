@@ -7,14 +7,28 @@ public class Bot : MonoBehaviour
 {
     public void Awake()
     {
-        this.RegisterEvent();
+        EventListenerManager.RegisterListener(this);
     }
 
-    [Event(nameof(BotTakeDamge))]
-    public void BotTakeDamge(object damage)
+    [EventListener(typeof(Bot),EventName.BotTakeDamge)]
+    public string BotTakeDamge(int damage)
     {
         int actualDamage = (int)damage;
         Debug.Log($"Bot took {actualDamage} damage!");
+        return actualDamage.ToString();
+    }
+    // [EventListener(typeof(Bot),EventName.BotTakeDamgeAction)]
+    // public void BotTakeDamgeAction(float damage)
+    // {
+    //     int actualDamage = (int)damage;
+    //     Debug.Log($"Bot took {actualDamage} damage!");
+    // }
+    [EventListener(typeof(Bot),EventName.BotTakeDamgeAction)]
+    public string BotTakeDamgeAction(float damage,float damgex)
+    {
+     
+        Debug.Log($"Bot took {damage}{damgex} damage!");
+        return "Sondeptrai";
     }
 
 }

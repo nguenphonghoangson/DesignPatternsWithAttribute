@@ -15,7 +15,7 @@ public static class SingletonManager
         {
             if (!instances.ContainsKey(type))
             {
-                var singleton = new GameObject($"{type.Name}_Singleton").AddComponent<T>();
+                var singleton = new GameObject($"{type.Name}").AddComponent<T>();
                 var attribute = type.GetCustomAttribute<SingletonAttribute>();
 
                 if (attribute != null && attribute.Persistent)
