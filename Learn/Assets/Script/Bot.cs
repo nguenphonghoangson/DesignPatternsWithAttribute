@@ -17,18 +17,17 @@ public class Bot : MonoBehaviour
         Debug.Log($"Bot took {actualDamage} damage!");
         return actualDamage.ToString();
     }
-    // [EventListener(typeof(Bot),EventName.BotTakeDamgeAction)]
-    // public void BotTakeDamgeAction(float damage)
-    // {
-    //     int actualDamage = (int)damage;
-    //     Debug.Log($"Bot took {actualDamage} damage!");
-    // }
     [EventListener(typeof(Bot),EventName.BotTakeDamgeAction)]
-    public string BotTakeDamgeAction(float damage,float damgex)
+    public void BotTakeDamgeAction(float damage)
     {
-     
-        Debug.Log($"Bot took {damage}{damgex} damage!");
-        return "Sondeptrai";
+        int actualDamage = (int)damage;
+        Debug.Log($"Bot took aaa{actualDamage} damage!");
+    }
+    [EventListener(typeof(Bot),EventName.BotTakeDamgeAction)]
+    public void BotTakeDamgeAction(int damage,int dame)
+    {
+        int actualDamage = (int)damage;
+        Debug.Log($"Bot took {actualDamage} damage!");
     }
 
 }
