@@ -1,24 +1,69 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-[Node]
-public class NotificationNode:MonoBehaviour
+
+public class NotificationNode : MonoBehaviour
 {
-    public NodeType NodeType => nodeType;
-    public NodeType ParentType => parentType;
-    public Image NotificationImage => notificationImage;
-    public string NodeId { get; set; }
-    [SerializeField] private NodeType nodeType;
-    private string nodeId;
-    [SerializeField] private NodeType parentType;
+    [SerializeField] private NotificationConfig config;
     [SerializeField] private Image notificationImage;
 
-    private void Awake()
+    public string Id => config.Id;
+    public NotificationConfig Config => config;
+
+    private void Start()
     {
-        NotificationManager.RegisterNotification(this);
+        RegisterNode();
+        SetNodeState(true);
+    }
+
+    private void OnDestroy()
+    {
+        NotificationSystem.Instance.Unregister(Id);
+    }
+
+    private void RegisterNode()
+    {
+        NotificationSystem.Instance.Register(this);
+    }
+
+    public void SetVisualState(bool isActive)
+    {
+        notificationImage.gameObject.SetActive(isActive);
+    }
+
+    [ContextMenu("Deactivate")]
+    public void DeactivateNode()
+    {
+        SetNodeState(false);
+    }
+
+    [ContextMenu("Activate")]
+    public void ActivateNode()
+    {
+        SetNodeState(true);
+    }
+
+    private void SetNodeState(bool isActive)
+    {
+        NotificationSystem.Instance.SetState(Id, isActive);
     }
 }
 
+[Serializable]
+public class NotificationConfig
+{
+    [SerializeField] private string id;
+    [SerializeField] private string parentId;
 
+    public string Id
+    {
+        get => id;
+        set => id = value;
+    }
+
+    public string ParentId
+    {
+        get => parentId;
+        set => parentId = value;
+    }
+}
